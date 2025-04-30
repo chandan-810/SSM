@@ -13,6 +13,13 @@ app.listen(PORT, () => {
   console.log("PONG");
 });
 
+app.get("/", (req, res) => {
+  res.send({
+    activeStatus: true,
+    error: false,
+  });
+});
+
 app.use(bodyParser.json());
 app.use(cors());
 app.use("/auth", AuthRouter);

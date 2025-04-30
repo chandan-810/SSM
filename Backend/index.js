@@ -13,11 +13,8 @@ app.listen(PORT, () => {
   console.log("PONG");
 });
 
-app.get("/", (req, res) => {
-  res.send({
-    activeStatus: true,
-    error: false,
-  });
+app.get("/ping", (req, res) => {
+  res.send("PONG");
 });
 
 app.use(bodyParser.json());

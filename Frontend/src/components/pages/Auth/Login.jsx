@@ -32,7 +32,7 @@ const Login = () => {
       return handleError("Email and password are required");
     }
     try {
-      const url = "http://localhost:8080/auth/login";
+      const url = "https://test-repo-ten-lilac.vercel.app/auth/login";
       const response = await fetch(url, {
         method: "POST",
         headers: {

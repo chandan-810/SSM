@@ -1,24 +1,24 @@
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-function RefrshHandler({ setIsAuthenticated }) {
-  const location = useLocation();
+function RefreshHandler({ setIsAuthenticated }) {
+  const { pathname } = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (localStorage.getItem("token")) {
+    const token = localStorage.getItem("token");
+
+    if (token) {
       setIsAuthenticated(true);
-      if (
-        location.pathname === "/" ||
-        location.pathname === "/login" ||
-        location.pathname === "/register"
-      ) {
+
+      const isAuthPage = ["/", "/login", "/register"].includes(pathname);
+      if (isAuthPage) {
         navigate("/", { replace: false });
       }
     }
-  }, [location, navigate, setIsAuthenticated]);
+  }, [pathname, navigate, setIsAuthenticated]);
 
   return null;
 }
 
-export default RefrshHandler;
+export default RefreshHandler;

@@ -55,7 +55,7 @@ const Login = () => {
     setIsLoading(true);
 
     try {
-      const url = "https://test-repo-ten-lilac.vercel.app/auth/login";
+      const url = "http://localhost:8080/auth/login";
       const response = await fetch(url, {
         method: "POST",
         headers: {

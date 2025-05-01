@@ -6,7 +6,7 @@ import Login from "./components/pages/Auth/Login";
 import Register from "./components/pages/Auth/Register";
 import RefreshHandler from "./components/common/RefreshHandler";
 import AdminDashboard from "../src/components/pages/Admin/Dashboard";
-import TeacherDashboard from "../src/components/pages/TEacher/Dashboard";
+import TeacherDashboard from "../src/components/pages/Teacher/Dashboard";
 import ParentDashboard from "../src/components/pages/Parent/Dashboard";
 
 function App() {

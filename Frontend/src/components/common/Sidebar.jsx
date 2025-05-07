@@ -1,31 +1,81 @@
-import React from "react";
+import React, { useState } from "react";
+import { MdClose, MdMenu } from "react-icons/md";
+import { Link, useParams } from "react-router-dom";
 
-function Sidebar() {
-  const components = [
-    "Dashboard",
-    "Attendance",
-    "Homework",
-    "Students",
-    "Messages",
-    "Reports",
-  ];
+function Sidebar({ btns }) {
+  // console.log(btns);
+  const params = useParams();
+  const page = params.route;
+
+  const [showSidebar, setShowSidebar] = useState(false);
+
+  const handleSidebar = () => {
+    setShowSidebar(!showSidebar);
+  };
 
   return (
     <div>
-      <div className="h-screen w-50 bg-gray-100 dark:bg-gray-900 left-0 top-0 p-4">
+      <div className="md:hidden duration-100 hover:scale-125 z-10 m-5 right-0 top-2 fixed">
+        <button onClick={handleSidebar}>
+          {showSidebar ? <MdClose size={36} /> : <MdMenu size={36} />}
+        </button>
+      </div>
+      <div className="min-h-screen min-w-60 hidden h-full md:inline-block shadow-2xl w-50 bg-sky-50 left-0 top-0 p-4">
         <div className="space-y-4">
           <nav className="space-y-4">
-            {components.map((component, index) => (
-              <a
-                key={index}
-                className="cursor-pointer block px-4 py-2 text-gray-600 dark:text-gray-40 hover:bg-gray-200 hover:dark:bg-gray-800 rounded-md transition-colors"
-              >
-                {component}
-              </a>
-            ))}
+            {btns.map((btn, index) => {
+              let selected = false;
+              if (page == btn.Title.toLowerCase()) {
+                selected = true;
+              }
+              return (
+                <Link
+                  key={index}
+                  to={btn.To}
+                  className={
+                    "cursor-pointer block px-4 py-2 text-gray-600 duration-100 hover:bg-sky-100  rounded-md transition-colors " +
+                    (selected ? " bg-sky-100" : "")
+                  }
+                >
+                  {btn.Title}
+                </Link>
+              );
+            })}
           </nav>
         </div>
       </div>
+      {showSidebar && (
+        <div
+          onClick={handleSidebar}
+          className="h-full w-full fixed top-0 bottom-0 left-0 right-0 z-30"
+        ></div>
+      )}
+      {showSidebar && (
+        <div className="min-h-full min-w-60 max-w-80 duration-100 backdrop-blur-3xl fixed top-0 bottom-0 left-0 z-50 h-full md:hidden shadow-2xl w-50 bg-sky-50 p-4">
+          <div className="space-y-4">
+            <nav className="space-y-4">
+              {btns.map((btn, index) => {
+                let selected = false;
+                if (page == btn.Title.toLowerCase()) {
+                  selected = true;
+                }
+                return (
+                  <Link
+                    key={index}
+                    to={btn.To}
+                    className={
+                      "cursor-pointer block px-4 py-2 text-gray-600 duration-100 hover:bg-sky-100  rounded-md transition-colors " +
+                      (selected ? " bg-sky-100" : "")
+                    }
+                  >
+                    {btn.Title}
+                  </Link>
+                );
+              })}
+            </nav>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
